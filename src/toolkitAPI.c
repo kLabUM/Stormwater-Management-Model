@@ -899,6 +899,42 @@ int DLLEXPORT swmm_getNodeResult(int index, int type, double *result)
     return(errcode);
 }
 
+int DLLEXPORT swmm_getNodePollutant(int index, double **PollutArray)
+///
+/// Input:   index = Index of desired ID
+/// Output:  result = Pollutant data for the desired node
+/// Return:  API Error
+/// Purpose: Gets Node Simulated Value at Current Time
+{
+    int p;
+    int errcode = 0;
+    double* result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[NODE])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else if (MEMCHECK(result = newDoubleArray(Nobjects[POLLUT])))
+    {
+        errcode = ERR_MEMORY;
+    }
+    else
+    {
+        for (p = 0; p < Nobjects[POLLUT]; p++)
+        {
+            result[p] = Node[index].oldQual[p];
+        } 
+        *PollutArray = result;
+    }
+    return(errcode);
+}
+
 int DLLEXPORT swmm_getLinkResult(int index, int type, double *result)
 ///
 /// Input:   index = Index of desired ID

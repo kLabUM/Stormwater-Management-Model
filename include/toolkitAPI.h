@@ -147,7 +147,7 @@ typedef enum {
     SM_NODEFLOOD      = 4,  /**< Flooding Rate */
     SM_NODEDEPTH      = 5,  /**< Node Depth */
     SM_NODEHEAD       = 6,  /**< Node Head */
-    SM_LATINFLOW      = 7   /**< Lateral Inflow Rate */
+    SM_LATINFLOW      = 7,  /**< Lateral Inflow Rate */
 } SM_NodeResult;
 
 /// Link result property codes
@@ -159,7 +159,7 @@ typedef enum {
     SM_DSSURFAREA      = 4,  /**< Downstream Surface Area */
     SM_SETTING         = 5,  /**< Setting */
     SM_TARGETSETTING   = 6,  /**< Target Setting */
-    SM_FROUDE          = 7   /**< Froude Number */
+    SM_FROUDE          = 7,  /**< Froude Number */
 } SM_LinkResult;
 
 /// Subcatchment result property codes
@@ -713,7 +713,7 @@ int DLLEXPORT swmm_getCurrentDateTimeStr(char *dtimestr);
  @return Error code
 */
 int DLLEXPORT swmm_getNodeResult(int index, int type, double *result);
-
+int DLLEXPORT swmm_getNodePollutant(int index, double **result);
 /**
  @brief Get a result value for specified link.
  @param index The index of a link
