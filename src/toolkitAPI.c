@@ -904,7 +904,7 @@ int DLLEXPORT swmm_getNodePollutant(int index, double **PollutArray)
 /// Input:   index = Index of desired ID
 /// Output:  result = Pollutant data for the desired node
 /// Return:  API Error
-/// Purpose: Gets Node Simulated Value at Current Time
+/// Purpose: Gets Node's pollutant concentrations
 {
     int p;
     int errcode = 0;
