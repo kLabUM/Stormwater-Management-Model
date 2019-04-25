@@ -32,6 +32,8 @@ int  stats_getOutfallStat(int index, SM_OutfallStats *outfallStats);
 int  stats_getLinkStat(int index, SM_LinkStats *linkStats);
 int  stats_getPumpStat(int index, SM_PumpStats *pumpStats);
 TSubcatchStats *stats_getSubcatchStat(int index);
+int  swmm_getSubcatchGage(int index, int *gageindex);
+int  swmm_setSubcatchGage(int index, int gageindex);
 
 // Utilty Function Declarations
 double* newDoubleArray(int n);
@@ -1661,6 +1663,48 @@ int DLLEXPORT swmm_setGagePrecip(int index, double total_precip)
     }
     return(errcode);
 }
+
+int DLLEXPORT swmm_getSubcatchGage(int index, int *gageindex)
+{
+    int errcode = 0;
+    *gageindex = 0;
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[SUBCATCH])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+	    *gageindex = Subcatch[index].gage;
+    }
+    return(errcode);
+}
+
+int DLLEXPORT swmm_setSubcatchGage(int index, int gageindex)
+{
+    int errcode = 0;
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[SUBCATCH])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+	    Subcatch[index].gage = gageindex;
+    }
+    return(errcode);
+}
+
 
 //-------------------------------
 // Utility Functions
