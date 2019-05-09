@@ -901,16 +901,17 @@ int DLLEXPORT swmm_getNodeResult(int index, int type, double *result)
     return(errcode);
 }
 
-int DLLEXPORT swmm_getNodePollutant(int index, double **PollutArray)
+int DLLEXPORT swmm_getNodePollutant(int index, int pollutant_index, double *pollutant)
 ///
 /// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
 /// Output:  result = Pollutant data for the desired node
 /// Return:  API Error
 /// Purpose: Gets Node's pollutant concentrations
 {
     int p;
     int errcode = 0;
-    double* result;
+    double result;
 
     // Check if Open
     if(swmm_IsOpenFlag() == FALSE)
@@ -922,31 +923,28 @@ int DLLEXPORT swmm_getNodePollutant(int index, double **PollutArray)
     {
         errcode = ERR_API_OBJECT_INDEX;
     }
-    else if (MEMCHECK(result = newDoubleArray(Nobjects[POLLUT])))
-    {
-        errcode = ERR_MEMORY;
-    }
     else
     {
-        for (p = 0; p < Nobjects[POLLUT]; p++)
+        if (pollutant_index < Nobjects[POLLUT])
         {
-            result[p] = Node[index].oldQual[p];
+            result = Node[index].oldQual[pollutant_index];
         } 
-        *PollutArray = result;
+        *pollutant = result;
     }
     return(errcode);
 }
 
-int DLLEXPORT swmm_getLinkPollutant(int index, double **PollutArray)
+int DLLEXPORT swmm_getLinkPollutant(int index, int pollutant_index, double *pollutant)
 ///
 /// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
 /// Output:  result = Pollutant data for the desired link
 /// Return:  API Error
 /// Purpose: Gets Link's pollutant concentrations
 {
     int p;
     int errcode = 0;
-    double* result;
+    double result;
 
     // Check if Open
     if(swmm_IsOpenFlag() == FALSE)
@@ -958,20 +956,17 @@ int DLLEXPORT swmm_getLinkPollutant(int index, double **PollutArray)
     {
         errcode = ERR_API_OBJECT_INDEX;
     }
-    else if (MEMCHECK(result = newDoubleArray(Nobjects[POLLUT])))
-    {
-        errcode = ERR_MEMORY;
-    }
     else
     {
-        for (p = 0; p < Nobjects[POLLUT]; p++)
+        if (pollutant_index < Nobjects[POLLUT])
         {
-            result[p] = Link[index].oldQual[p];
+            result = Link[index].oldQual[pollutant_index];
         } 
-        *PollutArray = result;
+        *pollutant = result;
     }
     return(errcode);
 }
+
 int DLLEXPORT swmm_getLinkResult(int index, int type, double *result)
 ///
 /// Input:   index = Index of desired ID

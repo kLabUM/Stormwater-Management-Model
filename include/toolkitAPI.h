@@ -713,7 +713,7 @@ int DLLEXPORT swmm_getCurrentDateTimeStr(char *dtimestr);
  @return Error code
 */
 int DLLEXPORT swmm_getNodeResult(int index, int type, double *result);
-int DLLEXPORT swmm_getNodePollutant(int index, double **result);
+int DLLEXPORT swmm_getNodePollutant(int index, int pollutant_index, double *pollutant);
 /**
  @brief Get a result value for specified link.
  @param index The index of a link
