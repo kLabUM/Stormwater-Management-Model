@@ -137,9 +137,11 @@ BOOST_AUTO_TEST_CASE(model_not_open) {
     BOOST_CHECK_EQUAL(error, ERR_API_INPUTNOTOPEN);
 
     // //Pollutant Node
-    error = swmm_getNodePollutant(0, &result_array);
+    error = swmm_getNodePollutant(0, 0, &val);
     BOOST_CHECK_EQUAL(error, ERR_API_INPUTNOTOPEN);
 }
+
+
 
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -228,7 +230,7 @@ BOOST_FIXTURE_TEST_CASE(object_bounds_check, FixtureOpenClose) {
     BOOST_CHECK_EQUAL(error, ERR_API_OBJECT_INDEX);
 
     // //Pollutant Node
-    error = swmm_getNodePollutant(100, &result_array);
+    error = swmm_getNodePollutant(100, 0, &val);
     BOOST_CHECK_EQUAL(error, ERR_API_INPUTNOTOPEN);
 }
 
