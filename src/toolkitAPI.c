@@ -934,6 +934,37 @@ int DLLEXPORT swmm_getNodePollutant(int index, int pollutant_index, double *poll
     return(errcode);
 }
 
+int DLLEXPORT swmm_setNodePollutant(int index, int pollutant_index, double pollutant)
+///
+/// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
+/// Return:  API Error
+/// Purpose: Sets Node's pollutant concentrations
+{
+    int p;
+    int errcode = 0;
+    double result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[NODE])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        if (pollutant_index < Nobjects[POLLUT])
+        {
+            Node[index].newQual[pollutant_index] = pollutant;
+        } 
+    }
+    return(errcode);
+}
+
 int DLLEXPORT swmm_getLinkPollutant(int index, int pollutant_index, double *pollutant)
 ///
 /// Input:   index = Index of desired ID
@@ -963,6 +994,37 @@ int DLLEXPORT swmm_getLinkPollutant(int index, int pollutant_index, double *poll
             result = Link[index].oldQual[pollutant_index];
         } 
         *pollutant = result;
+    }
+    return(errcode);
+}
+
+int DLLEXPORT swmm_setLinkPollutant(int index, int pollutant_index, double pollutant)
+///
+/// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
+/// Return:  API Error
+/// Purpose: Sets Link's pollutant concentrations
+{
+    int p;
+    int errcode = 0;
+    double result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[LINK])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        if (pollutant_index < Nobjects[POLLUT])
+        {
+            Link[index].newQual[pollutant_index] = pollutant;
+        } 
     }
     return(errcode);
 }
