@@ -106,7 +106,7 @@ typedef struct
 typedef struct
 {
    char*         ID;              // raingage name
-   int		     externalRain;    // rainfall-rate injected RAIN API
+   int		 externalRain;    // rainfall-rate injected RAIN API
    int           dataSource;      // data from time series or file 
    int           tSeries;         // rainfall data time series index
    char          fname[MAXFNAME+1]; // name of rainfall data file
@@ -511,6 +511,8 @@ typedef struct
    double*       newQual;         // current quality state
    double        oldFlowInflow;   // previous flow inflow
    double        oldNetInflow;    // previous net inflow
+   double	 externalQual;    // custom quality state
+   int		 customTreat;     // true if using custom treatment
 }  TNode;
 
 //---------------
@@ -667,6 +669,8 @@ typedef struct
    char          bypassed;        // bypass dynwave calc. flag
    char          normalFlow;      // normal flow limited flag
    char          inletControl;    // culvert inlet control flag
+   double	 externalQual;    // custom quality state
+   int		 customTreat;     // true if using custom treatment
 }  TLink;
 
 //---------------
