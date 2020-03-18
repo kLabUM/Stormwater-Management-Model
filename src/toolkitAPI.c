@@ -572,6 +572,8 @@ int DLLEXPORT swmm_setNodeParam(int index, int Param, double value)
                 Node[index].pondedArea = value / ( UCF(LENGTH) * UCF(LENGTH) ); break;
             case SM_INITDEPTH:
                 Node[index].initDepth = value / UCF(LENGTH); break;
+	    case SM_CUSTOMQUAL:
+		Node[index].customQual = value; break;
             default: errcode = ERR_API_OUTBOUNDS; break;
         }
     }
