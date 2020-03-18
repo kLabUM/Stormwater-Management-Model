@@ -959,7 +959,7 @@ int DLLEXPORT swmm_setNodePollutant(int index, int pollutant_index, double pollu
     {
         if (pollutant_index < Nobjects[POLLUT])
         {
-            Node[index].newQual[pollutant_index] = pollutant;
+            Node[index].externalQual[pollutant_index] = pollutant;
         } 
     }
     return(errcode);
@@ -1023,7 +1023,7 @@ int DLLEXPORT swmm_setLinkPollutant(int index, int pollutant_index, double pollu
     {
         if (pollutant_index < Nobjects[POLLUT])
         {
-            Link[index].newQual[pollutant_index] = pollutant;
+            Link[index].externalQual[pollutant_index] = pollutant;
         } 
     }
     return(errcode);
