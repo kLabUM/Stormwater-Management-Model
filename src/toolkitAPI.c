@@ -927,7 +927,7 @@ int DLLEXPORT swmm_getNodePollutant(int index, int pollutant_index, double *poll
     {
         if (pollutant_index < Nobjects[POLLUT])
         {
-            result = Node[index].oldQual[pollutant_index];
+            result = Node[index].newQual[pollutant_index];
         } 
         *pollutant = result;
     }
@@ -991,7 +991,7 @@ int DLLEXPORT swmm_getLinkPollutant(int index, int pollutant_index, double *poll
     {
         if (pollutant_index < Nobjects[POLLUT])
         {
-            result = Link[index].oldQual[pollutant_index];
+            result = Link[index].newQual[pollutant_index];
         } 
         *pollutant = result;
     }
