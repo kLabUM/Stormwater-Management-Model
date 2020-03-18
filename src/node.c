@@ -243,6 +243,8 @@ void node_initState(int j)
     {
         Node[j].oldQual[p]  = 0.0;
         Node[j].newQual[p]  = 0.0;
+	Node[j].externalQual[p] = 0.0;   // intializes quality value for external treatment
+        Node[j].customTreat[p] = 0;      // flag to allow for external custom treatment, 1 allows for custom treatment
     }
 
     // --- initialize any inflow
