@@ -210,7 +210,7 @@ void  treatmnt_treat(int j, double q, double v, double tStep)
     TTreatment* treatment;             // pointer to treatment object
 
     // --- set locally shared variables for node j
-    if ( Node[j].treatment == NULL ) return;
+    if ( Node[j].treatment == NULL && Node[j].customTreat == 0 ) return;
     ErrCode = 0;
     J  = j;                            // current node
     Dt = tStep;                        // current time step
@@ -226,9 +226,12 @@ void  treatmnt_treat(int j, double q, double v, double tStep)
         // --- removal is zero if there is no treatment equation
         treatment = &Node[j].treatment[p];
         if ( treatment->equation == NULL ) R[p] = 0.0;
+ 
+        // --- no removal for custom treatment expression when there is no inflow 
+	else if ( Node[j].customTreat == 1 && q <= ZERO ) R[p] = 0.0;
 
         // --- no removal for removal-type expression when there is no inflow 
-	    else if ( treatment->treatType == REMOVAL && q <= ZERO ) R[p] = 0.0;
+	else if ( treatment->treatType == REMOVAL && q <= ZERO && Node[j].customTreat == 0 ) R[p] = 0.0;
 
         // --- otherwise evaluate the treatment expression to find R[p]
         else getRemoval(p);
@@ -243,16 +246,15 @@ void  treatmnt_treat(int j, double q, double v, double tStep)
     // --- update nodal concentrations and mass balances
     else for ( p = 0; p < Nobjects[POLLUT]; p++ )
     {
-        if ( R[p] == 0.0 ) continue;
+        if ( R[p] == 0.0 && Node[j].customTreat == 0 ) continue;
         treatment = &Node[j].treatment[p];
 
         // --- removal-type treatment equations get applied to inflow stream
-
-        if ( treatment->treatType == REMOVAL )
+        if ( treatment->treatType == REMOVAL && Node[j].customTreat == 0  )
         {
             // --- if no pollutant in inflow then cOut is current nodal concen.
             if ( Cin[p] == 0.0 ) cOut = Node[j].newQual[p];
-
+            
             // ---  otherwise apply removal to influent concen.
             else cOut = (1.0 - R[p]) * Cin[p];
 
@@ -260,6 +262,9 @@ void  treatmnt_treat(int j, double q, double v, double tStep)
             //     (i.e., in case node is a storage unit) 
             cOut = MIN(cOut, Node[j].newQual[p]);
         }
+
+        // --- custom treatment equations get applied to nodal concentration
+	else if ( Node[j].customTreat == 1 ) cOut = Node[j].externalQual[p];
 
         // --- concentration-type equations get applied to nodal concentration
         else
