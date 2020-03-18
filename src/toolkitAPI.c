@@ -674,6 +674,8 @@ int DLLEXPORT swmm_setLinkParam(int index, int Param, double value)
                 Link[index].cLossOutlet = value; break;
             case SM_AVELOSS:
                 Link[index].cLossAvg = value; break;
+	    case SM_CUSTOMQUAL:
+		Link[index].customQual = value; break;
             default: errcode = ERR_API_OUTBOUNDS; break;
         }
         // re-validated link
