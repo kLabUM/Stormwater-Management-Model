@@ -511,7 +511,7 @@ typedef struct
    double*       newQual;         	// current quality state
    double        oldFlowInflow;   	// previous flow inflow
    double        oldNetInflow;    	// previous net inflow
-   double	 externalQual;    	// custom quality state
+   double*	 externalQual;    	// custom quality state
    int		 externalTreatment;     // 0 uses SWMMs treatment 1 uses externally defined treatment
 }  TNode;
 
@@ -669,7 +669,7 @@ typedef struct
    char          bypassed;        	// bypass dynwave calc. flag
    char          normalFlow;      	// normal flow limited flag
    char          inletControl;    	// culvert inlet control flag
-   double	 externalQual;    	// custom quality state
+   double*	 externalQual;    	// custom quality state
    int		 externalTreatment;     // 0 uses SWMMs treatment 1 uses externally defined treatment
 }  TLink;
 
