@@ -572,7 +572,7 @@ int DLLEXPORT swmm_setNodeParam(int index, int Param, double value)
                 Node[index].pondedArea = value / ( UCF(LENGTH) * UCF(LENGTH) ); break;
             case SM_INITDEPTH:
                 Node[index].initDepth = value / UCF(LENGTH); break;
-	    case SM_EXTERNALTREATMENT:
+	    case SM_EXTERNALTREATMENT_N:
 		Node[index].externalTreatment = value; break;
             default: errcode = ERR_API_OUTBOUNDS; break;
         }
@@ -674,7 +674,7 @@ int DLLEXPORT swmm_setLinkParam(int index, int Param, double value)
                 Link[index].cLossOutlet = value; break;
             case SM_AVELOSS:
                 Link[index].cLossAvg = value; break;
-	    case SM_EXTERNALTREATMENT:
+	    case SM_EXTERNALTREATMENT_L:
 		Link[index].externalTreatment = value; break;
             default: errcode = ERR_API_OUTBOUNDS; break;
         }
