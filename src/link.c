@@ -503,6 +503,8 @@ void link_initState(int j)
     Link[j].normalFlow    = FALSE;
     if ( Link[j].type == CONDUIT ) conduit_initState(j, Link[j].subIndex);
     if ( Link[j].type == PUMP    ) pump_initState(j, Link[j].subIndex);
+    Link[j].externalTreatment = 0;      	// 0 uses SWMMs treatment, 1 uses externally defined treatment   
+
 
     // --- initialize water quality state
     for (p = 0; p < Nobjects[POLLUT]; p++)
@@ -511,7 +513,6 @@ void link_initState(int j)
         Link[j].newQual[p] = 0.0;
 	Link[j].totalLoad[p] = 0.0;
 	Link[j].externalQual[p] = 0.0;   	// intializes quality value for external treatment
-        Link[j].externalTreatment[p] = 0;      	// 0 uses SWMMs treatment, 1 uses externally defined treatment   
     }
 }
 
