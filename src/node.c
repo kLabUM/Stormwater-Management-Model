@@ -237,6 +237,7 @@ void node_initState(int j)
     Node[j].fullVolume = node_getVolume(j, Node[j].fullDepth);
     Node[j].oldVolume = node_getVolume(j, Node[j].oldDepth);
     Node[j].newVolume = Node[j].oldVolume;
+    Node[j].externalTreatment = 0;      	// 0 uses SWMMs treatment 1 uses externally defined treatment   
 
     // --- initialize water quality state
     for (p = 0; p < Nobjects[POLLUT]; p++)
@@ -244,7 +245,6 @@ void node_initState(int j)
         Node[j].oldQual[p]  = 0.0;
         Node[j].newQual[p]  = 0.0;
 	Node[j].externalQual[p] = 0.0;   	// intializes quality value for external treatment
-        Node[j].externalTreatment[p] = 0;      	// 0 uses SWMMs treatment 1 uses externally defined treatment   
     }
 
     // --- initialize any inflow
