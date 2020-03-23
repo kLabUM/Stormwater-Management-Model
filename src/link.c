@@ -510,8 +510,8 @@ void link_initState(int j)
         Link[j].oldQual[p] = 0.0;
         Link[j].newQual[p] = 0.0;
 	Link[j].totalLoad[p] = 0.0;
-	Link[j].externalQual[p] = 0.0;   // initializes quality value for external treatment
-        Link[j].customTreat[p] = 0;      // flag to allow for external custom treatment, 1 allows for custom treatment
+	Link[j].externalQual[p] = 0.0;   	// intializes quality value for external treatment
+        Link[j].externalTreatment[p] = 0;      	// 0 uses SWMMs treatment, 1 uses externally defined treatment   
     }
 }
 
