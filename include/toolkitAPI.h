@@ -116,7 +116,7 @@ typedef enum {
     SM_SURCHDEPTH   = 2,  /**< Surcharge Depth */
     SM_PONDAREA     = 3,  /**< Ponding Area */
     SM_INITDEPTH    = 4,  /**< Initial Depth */
-    SM_CUSTOMQUAL   = 5,  /**< Custom Treatment */
+    SM_EXTERNALTREATMENT   = 5,  /**< Εxternally Defined Treatment */
 } SM_NodeProperty;
 
 /// Link property codes
@@ -128,7 +128,7 @@ typedef enum {
     SM_INLETLOSS    = 4,  /**< Inlet Loss */
     SM_OUTLETLOSS   = 5,  /**< Outles Loss */
     SM_AVELOSS      = 6,  /**< Average Loss */
-    SM_CUSTOMQUAL   = 7,  /**< Custom Treatment */
+    SM_EXTERNALTREATMENT   = 7,  /**< Εxternally Defined Treatment */
 } SM_LinkProperty;
 
 /// Subcatchment property codes
