@@ -899,6 +899,203 @@ int DLLEXPORT swmm_getNodeResult(int index, int type, double *result)
     return(errcode);
 }
 
+
+int DLLEXPORT swmm_getNodeC2(int index, int pollutant_index, double *pollutant)
+///
+/// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
+/// Output:  result = Pollutant data for the desired node
+/// Return:  API Error
+/// Purpose: Gets Node's pollutant concentrations
+{
+    int p;
+    int errcode = 0;
+    double result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[NODE])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        if (pollutant_index < Nobjects[POLLUT])
+        {
+            result = Node[index].C_2[pollutant_index];
+        } 
+        *pollutant = result;
+    }
+    return(errcode);
+}
+
+
+int DLLEXPORT swmm_getNodeCin(int index, int pollutant_index, double *pollutant)
+///
+/// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
+/// Output:  result = Pollutant data for the desired node
+/// Return:  API Error
+/// Purpose: Gets Node's pollutant concentrations
+{
+    int p;
+    int errcode = 0;
+    double result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[NODE])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        if (pollutant_index < Nobjects[POLLUT])
+        {
+            result = Node[index].C_in[pollutant_index];
+        } 
+        *pollutant = result;
+    }
+    return(errcode);
+}
+
+
+int DLLEXPORT swmm_getNodeHRT(int index, double *value)
+///
+/// Input:   index = Index of desired ID
+/// Output:  result = HRT for the desired storage node
+/// Return:  API Error
+/// Purpose: Gets Node's HRT (hours)
+{
+    int errcode = 0;
+    double result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[NODE])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        result = Storage[index].hrt; 
+        *value = result;
+    }
+    return(errcode);
+}
+
+
+int DLLEXPORT swmm_setNodePollutant(int index, int pollutant_index, double pollutant)
+///
+/// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
+/// Return:  API Error
+/// Purpose: Sets Node's pollutant concentrations
+{
+    int p;
+    int errcode = 0;
+    double result;
+    printf("\n SetPollutant \n");
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[NODE])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        if (pollutant_index < Nobjects[POLLUT])
+        {
+            Node[index].externalQual[pollutant_index] = pollutant;
+            Node[index].externalTreatment = 1;
+        } 
+    }
+    return(errcode);
+}
+
+
+int DLLEXPORT swmm_getLinkC2(int index, int pollutant_index, double *pollutant)
+///
+/// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
+/// Output:  result = Pollutant data for the desired link
+/// Return:  API Error
+/// Purpose: Gets Link's pollutant concentrations
+{
+    int p;
+    int errcode = 0;
+    double result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[LINK])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        if (pollutant_index < Nobjects[POLLUT])
+        {
+            result = Link[index].C_2[pollutant_index];
+        } 
+        *pollutant = result;
+    }
+    return(errcode);
+}
+
+int DLLEXPORT swmm_setLinkPollutant(int index, int pollutant_index, double pollutant)
+///
+/// Input:   index = Index of desired ID
+///          pollutant_index = Index of desired pollutant
+/// Return:  API Error
+/// Purpose: Sets Link's pollutant concentrations
+{
+    int p;
+    int errcode = 0;
+    double result;
+
+    // Check if Open
+    if(swmm_IsOpenFlag() == FALSE)
+    {
+        errcode = ERR_API_INPUTNOTOPEN;
+    }
+    // Check if object index is within bounds
+    else if (index < 0 || index >= Nobjects[LINK])
+    {
+        errcode = ERR_API_OBJECT_INDEX;
+    }
+    else
+    {
+        if (pollutant_index < Nobjects[POLLUT])
+        {
+            Link[index].externalQual[pollutant_index] = pollutant;
+            Link[index].externalTreatment = 1;
+        } 
+    }
+    return(errcode);
+}
+
+
 int DLLEXPORT swmm_getLinkResult(int index, int type, double *result)
 ///
 /// Input:   index = Index of desired ID
