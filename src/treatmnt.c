@@ -279,6 +279,56 @@ void  treatmnt_treat(int j, double q, double v, double tStep)
 }
 
 //=============================================================================
+void  treatmnt_custom(int j, double q, double v, double tStep)
+//
+//  Input:   j     = node index
+//           q     = inflow to node (cfs)
+//           v     = volume of node (ft3)
+//           tStep = routing time step (sec)
+//           externalTreatment = 1 if flag for external treatment, bypass SWMM treatment (0 for SWMM treatment)
+//  Output:  none
+//  Purpose: updates pollutant concentrations at a node after treatment.
+//
+{
+    int    p;                          // pollutant index
+    double cOut;                       // concentration after treatment
+    double massLost;                   // mass lost by treatment per time step
+
+    printf("\n treatmnt_custom \n"); 
+
+    // --- update nodal concentrations and mass balances
+    for ( p = 0; p < Nobjects[POLLUT]; p++ )
+    {
+        printf("\n Cin_ct: %f \n", Cin[p]);
+        Node[j].C_in[p] = Cin[p];
+
+        if ( Cin[p] == 0.0 || Node[j].newQual[p] == 0.0 ) 
+        {
+            cOut = Node[j].newQual[p];
+            printf(" \n newQual: %f \n", Node[j].newQual[p]);
+            Node[j].externalTreatment = 0;
+        }
+        else 
+        {
+            cOut = Node[j].externalQual[p];
+            printf(" \n ExternalQual: %f \n", Node[j].externalQual[p]);
+            Node[j].externalTreatment = 0;
+        }
+	    
+        // --- mass lost must account for any initial mass in storage 
+        massLost = (Cin[p]*q*tStep + Node[j].oldQual[p]*Node[j].oldVolume - 
+                    cOut*(q*tStep + Node[j].oldVolume)) / tStep; 
+        massLost = MAX(0.0, massLost);
+        printf("\n massLost: %f \n", massLost); 
+
+        // --- add mass loss to mass balance totals and revise nodal concentration
+        massbal_addReactedMass(p, massLost);
+        
+        Node[j].newQual[p] = cOut;
+    }
+}
+
+//=============================================================================
 
 int  createTreatment(int j)
 //
