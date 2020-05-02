@@ -511,6 +511,10 @@ typedef struct
    double*       newQual;         // current quality state
    double        oldFlowInflow;   // previous flow inflow
    double        oldNetInflow;    // previous net inflow
+   double*       externalQual;    // custom quality state
+   int           externalTreatment;	// external treatment flag
+   double*       C_in;		  // influent concentration
+   double*	 C_2;		  // newQual after findStorageQual
 }  TNode;
 
 //---------------
@@ -667,6 +671,9 @@ typedef struct
    char          bypassed;        // bypass dynwave calc. flag
    char          normalFlow;      // normal flow limited flag
    char          inletControl;    // culvert inlet control flag
+   double*       externalQual;	  // custom quality state
+   int           externalTreatment;	// external treatment flag
+   double*       C_2;  	 	  // newQual after findStorageQual
 }  TLink;
 
 //---------------
