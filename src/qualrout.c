@@ -459,6 +459,7 @@ void  findStorageQual(int j, double tStep)
 
         // --- assign new concen. to node
         Node[j].newQual[p] = c2;
+        Node[j].C_2[p] = c2;
     }
 }
 
