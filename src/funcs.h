@@ -235,6 +235,7 @@ int     treatmnt_readExpression(char* tok[], int ntoks);
 void    treatmnt_delete(int node);
 void    treatmnt_treat(int node, double q, double v, double tStep);
 void    treatmnt_setInflow(double qIn, double wIn[]);
+void    treatmnt_custom(int node, double q, double v, double tStep);
 
 //-----------------------------------------------------------------------------
 //   Mass Balance Methods
